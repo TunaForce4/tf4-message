@@ -6,12 +6,12 @@
   +  Slack
 <hr> 
 - Dependancies
-  + lombok
-  + web
-  + FeignClient
-  + RabbitMQ
-  + Mysql
-  + JPA
+  + lombok <br>
+  + web <br>
+  + FeignClient <br>
+  + RabbitMQ <br>
+  + Mysql <br>
+  + JPA <br>
 <hr>
 - How to work
    
