@@ -26,7 +26,7 @@ public class SlackMsg {
 
 
 
-    public RequestSlackSend sendMessageChannel(String slackToken, String channelId,String message) {
+    public void sendMessageChannel(String slackToken, String channelId,String message) {
         Slack slack = Slack.getInstance();
 
         try {
@@ -45,16 +45,16 @@ public class SlackMsg {
                 log.error("메시지 전송 실패: " + response.getError());
                 resultCheck = false;
             }
-            return new RequestSlackSend(
-                resultCheck,
-                message
-            );
+//            return new RequestSlackSend(
+//                resultCheck,
+//                message
+//            );
         } catch (SlackApiException | IOException e) {
             e.printStackTrace();
-            return new RequestSlackSend(
-                    false,
-                    "Error : " + e.getMessage() + message
-            );
+//            return new RequestSlackSend(
+//                    false,
+//                    "Error : " + e.getMessage() + message
+//            );
         }
     }
     public void sendDirectMessage(String slackToken,String userId, String message) throws IOException, SlackApiException {
