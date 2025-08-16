@@ -1,6 +1,6 @@
 package com.tunaforce.message.message.entity;
 
-import com.tunaforce.message.message.dto.request.CreateLogRequestDto;
+import com.tunaforce.message.message.dto.request.CreateMessageLogRequestDto;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -33,10 +33,10 @@ public class MessageManagement extends Timestamped {
         this.receiverId = receiverId;
     }
 
-    public MessageManagement(CreateLogRequestDto createLogRequestDto) {
-        this.content = createLogRequestDto.content();
-        this.senderId = createLogRequestDto.senderId();
-        this.receiverId = createLogRequestDto.receiverId();
+    public MessageManagement(CreateMessageLogRequestDto createMessageLogRequestDto) {
+        this.content = createMessageLogRequestDto.content();
+        this.senderId = createMessageLogRequestDto.senderId();
+        this.receiverId = createMessageLogRequestDto.receiverId();
     }
 
     public void deleteMessageLog(UUID messageId) {

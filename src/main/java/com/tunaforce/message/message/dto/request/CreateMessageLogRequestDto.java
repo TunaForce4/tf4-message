@@ -1,6 +1,6 @@
 package com.tunaforce.message.message.dto.request;
 
-public record CreateLogRequestDto(
+public record CreateMessageLogRequestDto(
         String content,
         Long senderId,
         Long receiverId
