@@ -1,7 +1,5 @@
 package com.tunaforce.message.cmmn;
 
-
-import com.msa.slacktest.SLACK.dto.request.RequestSlackSend;
 import com.slack.api.Slack;
 import com.slack.api.methods.SlackApiException;
 import com.slack.api.methods.request.chat.ChatPostMessageRequest;
@@ -10,7 +8,6 @@ import com.slack.api.methods.request.conversations.ConversationsOpenRequest;
 import com.slack.api.methods.response.chat.ChatPostMessageResponse;
 import com.slack.api.methods.response.conversations.ConversationsOpenResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -20,19 +17,16 @@ import java.util.Collections;
 @Component
 public class SlackMsg {
 
-    @Value("${slack.api.token}")
-    private String slackToken;
-
-    @Value("${slack.channel.id}")
-    private String channelId;
-
- //   @Value("${slack.user.id}")
- //   private String userId;
+    //토큰은 auth 모듈에서 api로 받아 redis에 저장
+//    @Value("${slack.api.token}")
+//    private String slackToken;
+    //userid로 변경하여 auth 모듈에서 불러오기
+//    @Value("${slack.channel.id}")
+//    private String channelId;
 
 
 
-
-    public RequestSlackSend sendMessage(String message) {
+    public RequestSlackSend sendMessageChannel(String slackToken, String channelId,String message) {
         Slack slack = Slack.getInstance();
 
         try {
@@ -63,7 +57,7 @@ public class SlackMsg {
             );
         }
     }
-    public void sendDirectMessage(String userId, String message) throws IOException, SlackApiException {
+    public void sendDirectMessage(String slackToken,String userId, String message) throws IOException, SlackApiException {
         Slack slack = Slack.getInstance();
 
         // 1. 사용자와의 DM 대화방 열기
@@ -96,7 +90,7 @@ public class SlackMsg {
     }
 
 
-    public void fetchHistory(Integer brCount) {
+    public void fetchHistory(String slackToken, String channelId, Integer brCount) {
         var client = Slack.getInstance().methods();
         try {
             var response = client.conversationsHistory(ConversationsHistoryRequest.builder()

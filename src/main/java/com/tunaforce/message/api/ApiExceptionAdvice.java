@@ -1,5 +1,6 @@
 package com.tunaforce.message.api;
 
+import com.slack.api.methods.SlackApiException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -46,5 +47,15 @@ public class ApiExceptionAdvice {
                 .ok(apiResponse);
     }
 
-	@ExceptionHandler()
+	@ExceptionHandler(SlackApiException.class)
+	public ResponseEntity<ApiResponse<Object>> slackApiExceptionHandler(HttpServletRequest request, final SlackApiException slackApiException) {
+		ApiResponse<Object> apiResponse = ApiResponse.<Object>builder()
+				.status(ApiStatus.FORBIDDEN.getStatusCode())
+				.message(ApiStatus.FORBIDDEN.getMessage())
+				.errors(slackApiException.getMessage())
+				.build();
+
+		return ResponseEntity
+				.ok(apiResponse);
+	}
 }
