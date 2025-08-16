@@ -32,7 +32,7 @@ public class LogController {
     //2. 당일 배송 담당자를 할당 후 생성
     @PostMapping
     public ResponseEntity<ApiResponse<List<SearchLogResponseDto>>> createLogDatas(@RequestBody CreateRouteLogRequestDto routRequests){
-
+        return ResponseEntity.ok(null);
     }
     //deliveryID 값으로 검색하여 해당 값을 받아 수정
     //수정되는 값은 실제 데이터의 update : real_distance, real_time, curr_status
@@ -46,7 +46,7 @@ public class LogController {
     //deliveryID 값으로 검색하여 해당 값을 받아 삭제
     @DeleteMapping
     public ResponseEntity<ApiResponse<String>> deleteLogDatas(@RequestParam String deliveryId ){
-
+        return ResponseEntity.ok(null);
     }
 
 }
