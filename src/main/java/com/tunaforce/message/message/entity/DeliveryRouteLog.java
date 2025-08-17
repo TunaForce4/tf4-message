@@ -5,25 +5,23 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import java.util.UUID;
 
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "p_routeLog")
-public class DeliveryRouteLog extends Timestamped {
+public class DeliveryRouteLog {
 
     @Id
-    @GeneratedValue(generator = "UUID")
-    @Column(name = "deliveryIdx", updatable = false, nullable = false)
-    private UUID deliveryIdx;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long deliveryIdx;
     @Column(name = "delivery_Id",  nullable = false)
-    private UUID deliveryId;
+    private String deliveryId;
     @Column(name = "hub_Id",  nullable = false)
-    private UUID hubId;
+    private String hubId;
     @Column(name = "company_Id",  nullable = false)
-    private UUID companyId;
+    private String companyId;
     @Column(name = "appx_distance",  nullable = false)
     private String appxDistance;
     @Column(name = "appx_Time",  nullable = false)
@@ -42,10 +40,6 @@ public class DeliveryRouteLog extends Timestamped {
     //실제 소요 시간 수정
     public void updateRealInfo(){
 
-    }
-
-    public void deleteLog(UUID deliveryId){
-        delete(deliveryId);
     }
 
 }
