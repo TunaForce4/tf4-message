@@ -27,6 +27,7 @@ out/
 !**/src/test/**/out/
 *.yml
 /application.yml
+SwaggerConfig.java
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
