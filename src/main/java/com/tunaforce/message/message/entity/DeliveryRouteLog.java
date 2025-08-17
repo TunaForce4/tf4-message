@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-
 import java.util.UUID;
 
 @Getter
@@ -16,7 +15,8 @@ import java.util.UUID;
 public class DeliveryRouteLog extends Timestamped {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(generator = "UUID")
+    @Column(name = "deliveryIdx", updatable = false, nullable = false)
     private UUID deliveryIdx;
     @Column(name = "delivery_Id",  nullable = false)
     private UUID deliveryId;
