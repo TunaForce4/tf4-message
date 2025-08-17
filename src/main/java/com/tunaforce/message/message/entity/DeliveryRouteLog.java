@@ -6,16 +6,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.UUID;
+
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
 @Table(name = "p_routeLog")
-public class DeliveryRouteLog {
+public class DeliveryRouteLog extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long deliveryIdx;
+    private UUID deliveryIdx;
     @Column(name = "delivery_Id",  nullable = false)
     private String deliveryId;
     @Column(name = "hub_Id",  nullable = false)
@@ -40,6 +42,10 @@ public class DeliveryRouteLog {
     //실제 소요 시간 수정
     public void updateRealInfo(){
 
+    }
+
+    public void deleteLog(UUID deliveryId){
+        delete(deliveryId);
     }
 
 }
