@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class NaverRouteAPI {
+public class RouteData {
     //필수 필드만 추가
     // 출발지
     //출발지(경도,위도)

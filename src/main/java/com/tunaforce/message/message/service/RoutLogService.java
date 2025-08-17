@@ -35,7 +35,7 @@ public class RoutLogService {
         return true;
     }
 
-    public boolean deleteLog(Long deliveryId){
+    public boolean deleteLog(UUID deliveryId){
         DeliveryRouteLog deliveryRouteLog = routLogJPaRepository.findById(deliveryId).orElseThrow(() ->
                 new NoSuchElementException("데이터가 존재하지 않습니다."));
 

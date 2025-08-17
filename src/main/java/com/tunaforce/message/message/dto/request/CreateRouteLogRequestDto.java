@@ -1,7 +1,5 @@
 package com.tunaforce.message.message.dto.request;
 
-import jakarta.persistence.Column;
-
 import java.util.UUID;
 
 public class CreateRouteLogRequestDto {
