@@ -49,8 +49,8 @@ public class ApiExceptionAdvice {
 	@ExceptionHandler(SlackApiException.class)
 	public ResponseEntity<ApiResponse<Object>> slackApiExceptionHandler(HttpServletRequest request, final SlackApiException slackApiException) {
 		ApiResponse<Object> apiResponse = ApiResponse.<Object>builder()
-				.status(ApiStatus.FORBIDDEN.getStatusCode())
-				.message(ApiStatus.FORBIDDEN.getMessage())
+				.status(ApiStatus.NOT_FOUND.getStatusCode())
+				.message(ApiStatus.NOT_FOUND.getMessage())
 				.errors(slackApiException.getMessage())
 				.build();
 

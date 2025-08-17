@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,5 +29,17 @@ public class RoutLogService {
                         .currStatus(String.valueOf(entity.getCurrstatus()))
                         .build()
                 ).collect(Collectors.toList());
+    }
+
+    public boolean updateStatus(Long deliveryId){
+        return true;
+    }
+
+    public boolean deleteLog(UUID deliveryId){
+        DeliveryRouteLog deliveryRouteLog = routLogJPaRepository.findById(deliveryId).orElseThrow(() ->
+                new NoSuchElementException("데이터가 존재하지 않습니다."));
+
+        deliveryRouteLog.deleteLog(deliveryRouteLog.getDeliveryIdx());
+        return true;
     }
 }
