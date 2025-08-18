@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 
 //네이버 페인 클라이언트 인터페이스
-@FeignClient(name = "naverGeocode", url = "https://naveropenapi.apigw.ntruss.com/map-geocode/v2/")
+@FeignClient(name = "naverGeocode", url = "${Naver.API.Geocoding}")
 public interface CoordinatesData {
     @GetMapping("/geocode")
     String getGeocode(

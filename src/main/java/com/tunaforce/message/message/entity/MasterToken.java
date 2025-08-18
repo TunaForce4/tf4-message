@@ -22,7 +22,6 @@ public class MasterToken extends Timestamped {
     // 사용 헤더명 이름
     // 사용 키
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID userId;
 
     @Column(length = 150, name = "map_id")
