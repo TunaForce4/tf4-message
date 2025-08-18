@@ -14,4 +14,6 @@ public class SearchLogResponseDto {
     private String realDistance;
     private String realTime;
     private String currStatus;
+
+
 }
