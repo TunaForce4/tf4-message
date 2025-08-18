@@ -1,4 +1,4 @@
-package com.tunaforce.message.message.service;
+package com.tunaforce.message.message.service.feignClient;
 
 
 import com.tunaforce.message.message.dto.response.GetDeliveriesResponseDto;

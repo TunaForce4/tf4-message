@@ -8,6 +8,7 @@ import com.tunaforce.message.message.dto.response.CreateMessageLogResponseDto;
 import com.tunaforce.message.message.dto.response.UserInformationResponseDto;
 import com.tunaforce.message.message.entity.MasterToken;
 import com.tunaforce.message.message.repository.TokenKeyJpaRepository;
+import com.tunaforce.message.message.service.feignClient.ClientAuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
