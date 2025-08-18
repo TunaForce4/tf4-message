@@ -4,7 +4,7 @@ import com.slack.api.methods.SlackApiException;
 import com.tunaforce.message.api.ApiResponse;
 import com.tunaforce.message.cmmn.SlackMsg;
 import com.tunaforce.message.message.dto.request.CreateMessageLogRequestDto;
-import com.tunaforce.message.message.dto.response.CreateMessageLogResponseDto;
+import com.tunaforce.message.message.dto.response.MessageLogResponseDto;
 import com.tunaforce.message.message.dto.response.UserInformationResponseDto;
 import com.tunaforce.message.message.entity.MasterToken;
 import com.tunaforce.message.message.repository.TokenKeyJpaRepository;
@@ -23,18 +23,18 @@ public class MessageService {
     //슬랙 앱으로 보내는 함수 사용
     private final SlackMsg slackMsg;
 
-    public CreateMessageLogResponseDto sendMessage(Long senderId, CreateMessageLogRequestDto createMessageLogRequestDto) throws SlackApiException, IOException {
+    public MessageLogResponseDto sendMessage(Long senderId, CreateMessageLogRequestDto createMessageLogRequestDto) throws SlackApiException, IOException {
         UserInformationResponseDto senderAppId = clientAuthService.getUserInfo(senderId);
         UserInformationResponseDto receiverAppId = clientAuthService.getUserInfo(createMessageLogRequestDto.receiverId());
         //redis에 저장로직 추후 추가
 
         //받은 값과 조회한 값을 기준으로 응답 데이터 만듬
-        CreateMessageLogResponseDto resultData = new CreateMessageLogResponseDto(
+        MessageLogResponseDto resultData = new MessageLogResponseDto(
                 senderAppId.getName(),
                 createMessageLogRequestDto.content(),
                 receiverAppId.getName()
         );
-        ApiResponse<CreateMessageLogResponseDto> resultDto = ApiResponse.success(resultData);
+        ApiResponse<MessageLogResponseDto> resultDto = ApiResponse.success(resultData);
         //앱을 통한 메세지 송신 로직 구성
 
         //토큰 받아오는 로직

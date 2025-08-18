@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class CreateMessageLogResponseDto {
+public class MessageLogResponseDto {
     private String senderId;
     private String content;
     private String receiverId;
