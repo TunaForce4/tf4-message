@@ -1,6 +1,8 @@
 package com.tunaforce.message.message.service;
 
 
+import com.tunaforce.message.cmmn.ClientRoutesData;
+import com.tunaforce.message.cmmn.RouteData;
 import com.tunaforce.message.message.dto.response.SearchLogResponseDto;
 import com.tunaforce.message.message.entity.DeliveryRouteLog;
 import com.tunaforce.message.message.repository.RoutLogJPaRepository;
@@ -16,6 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class RoutLogService {
     private final RoutLogJPaRepository routLogJPaRepository;
+    private final ClientRoutesData clientRoutesData;
 
     public List<SearchLogResponseDto> readAllLog() {
         List<DeliveryRouteLog> results = routLogJPaRepository.findAll();
@@ -41,5 +44,10 @@ public class RoutLogService {
 
         deliveryRouteLog.deleteLog(deliveryRouteLog.getDeliveryIdx());
         return true;
+    }
+
+    public void getRoute(RouteData routeData){
+
+
     }
 }

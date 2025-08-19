@@ -1,6 +1,6 @@
 package com.tunaforce.message.message.service.feignClient;
 
-import com.tunaforce.message.cmmn.CoordinatesData;
+import com.tunaforce.message.cmmn.ClientCoordinatesData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class ClientCoordinatesService {
-    private final CoordinatesData coordinatesData;
+    private final ClientCoordinatesData clientCoordinatesData;
 
-    public String getCoordinates(String clientId, String clientSecret, String address) throws Exception {
-        String result = coordinatesData.getGeocode(
+    public String getCoordinates(String clientId, String clientSecret, String address) {
+        String result = clientCoordinatesData.getGeocode(
                 clientId,
                 clientSecret,
                 address
