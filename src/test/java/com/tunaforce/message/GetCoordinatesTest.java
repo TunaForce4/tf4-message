@@ -1,10 +1,11 @@
 package com.tunaforce.message;
 
+
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tunaforce.message.cmmn.ClientCoordinatesData;
 import com.tunaforce.message.cmmn.ClientRoutesData;
-import com.tunaforce.message.message.dto.naverMap.rootGeocodeResponseDto;
+import com.tunaforce.message.message.dto.naverMap.*;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,45 +36,47 @@ public class GetCoordinatesTest {
                 "거창군 마리면 풍계1길 27-103"
         );
         ObjectMapper test = new ObjectMapper();
-        rootGeocodeResponseDto tester = test.readValue(result, rootGeocodeResponseDto.class);
+        geocodeResponseDto tester = test.readValue(result, geocodeResponseDto.class);
 
-
+        String ss= tester.addresses.get(0).getX();
         //String resultsData = ccs.getCoordinates( Id, Key,"대구 비산동 320-9");
+        System.out.println("ss = " + ss);
         System.out.println("resultsData = " + result);
     }
 
     @Test
     @DisplayName("루트 데이터 수신 테스트")
-    void getRouteTest() throws JsonProcessingException {
-
-        ObjectMapper test = new ObjectMapper();
-
+    void getRoute() throws JsonProcessingException {
         String Id = "osh066qnrv";
         String Key = "uvvXHOeBUf3sEaIBaCX5jqBbJHBZqYNrem0s07lj";
 
-        String start = clientCoordinatesData.getGeocode(
+        String geochang = clientCoordinatesData.getGeocode(
+                Id,
+                Key,
+                "거창군 마리면 풍계1길 27-103"
+        );
+
+        String daegu = clientCoordinatesData.getGeocode(
                 Id,
                 Key,
                 "대구광역시 서구 비산동 320-9"
         );
 
-        rootGeocodeResponseDto startPt = test.readValue(start, rootGeocodeResponseDto.class);
+        ObjectMapper test = new ObjectMapper();
+        geocodeResponseDto geochangdto = test.readValue(geochang, geocodeResponseDto.class);
+        geocodeResponseDto daegudto = test.readValue(daegu, geocodeResponseDto.class);
 
-        String goal = clientCoordinatesData.getGeocode(
+        String resultData = clientRoutesData.getRoute(
                 Id,
                 Key,
-                "거창군 마리면 풍계1길 27-103"
-        );
-        rootGeocodeResponseDto goalPt = test.readValue(goal, rootGeocodeResponseDto.class);
+                daegudto.getAddresses().get(0).getX()+","+daegudto.getAddresses().get(0).getY(),
+                geochangdto.getAddresses().get(0).getX()+","+geochangdto.getAddresses().get(0).getY()
 
-        String result = clientRoutesData.getRoute(
-                Id,
-                Key,
-                startPt.addresses().get(0).x()+","+startPt.addresses().get(0).y(),
-                goalPt.addresses().get(0).x()+","+goalPt.addresses().get(0).y()
         );
 
-        System.out.println("result = " + result);
+
+
+        System.out.println("resultData = " + resultData);
     }
 
 }

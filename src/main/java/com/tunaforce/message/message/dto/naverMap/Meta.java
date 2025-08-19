@@ -1,7 +1,14 @@
 package com.tunaforce.message.message.dto.naverMap;
 
-public record Meta(
-        int totalCount,
-        int page,
-        int count
-) {}
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
+public class  Meta {
+    private int totalCount;
+    private int page;
+    private int count;
+}

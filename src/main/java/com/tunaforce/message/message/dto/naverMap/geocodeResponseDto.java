@@ -6,13 +6,13 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
-
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
-public class AddressElement {
-    private List<String> types;
-    private String longName;
-    private String shortName;
-    private String code;
+@AllArgsConstructor
+public class geocodeResponseDto {
+    public String status;
+    public Meta meta;
+    public List<Address> addresses;
+    public String errorMessage;
+
 }
