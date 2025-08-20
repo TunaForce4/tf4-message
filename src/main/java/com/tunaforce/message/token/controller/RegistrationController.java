@@ -2,7 +2,7 @@ package com.tunaforce.message.token.controller;
 
 import com.tunaforce.message.api.ApiResponse;
 import com.tunaforce.message.message.dto.request.MapKeyRequestDto;
-import com.tunaforce.message.message.dto.response.MapKeyReesponseDto;
+import com.tunaforce.message.message.dto.response.map.MapKeyReesponseDto;
 import com.tunaforce.message.token.service.RegistrationService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;

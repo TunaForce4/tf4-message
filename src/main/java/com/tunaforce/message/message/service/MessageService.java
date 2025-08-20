@@ -4,7 +4,7 @@ import com.slack.api.methods.SlackApiException;
 import com.tunaforce.message.cmmn.SlackMsg;
 import com.tunaforce.message.message.dto.request.CreateMessageLogRequestDto;
 import com.tunaforce.message.message.dto.response.MessageLogResponseDto;
-import com.tunaforce.message.message.dto.response.UserInformationResponseDto;
+import com.tunaforce.message.message.dto.response.auth.UserInformationResponseDto;
 import com.tunaforce.message.token.entity.MasterToken;
 import com.tunaforce.message.message.entity.MessageManagement;
 import com.tunaforce.message.message.repository.MessageLogRepository;
@@ -44,14 +44,23 @@ public class MessageService {
                 senderId,
                 createMessageLogRequestDto.receiverId()
         );
-        //앱을 통한 메세지 송신 로직 구성
 
         //토큰 받아오는 로직
         //이 테이블은 논리적으로 제거가 안된 값이 여러개의 값이 존재할 수 없음
         //deletedAt 부분인 null이 아닌 값 즉 논리적 제거가 되지 않은 값
         MasterToken tempKeys = tokenKeyJpaRepository.findByDeletedAt().get(0);
 
-        slackMsg.sendDirectMessage(tempKeys.getMessageAppToken(), receiverAppId.getSlackId(), resultData.getFormMessage());
+        slackMsg.sendDirectMessage(
+                tempKeys.getMessageAppToken(),
+                receiverAppId.getSlackId(),
+                resultData.getFormMessage()
+        );
+
+    //로그는 송신이 된 후에 쌓여야 함
+        MessageManagement messageManagement = new MessageManagement(resultData);
+        messageLogRepository.save(messageManagement);
+        //앱을 통한 메세지 송신 로직 구성
+
 
 
         return "null";

@@ -3,6 +3,7 @@ package com.tunaforce.message.maps.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.tunaforce.message.api.ApiResponse;
+import com.tunaforce.message.maps.dto.naverMap.geocodeResponseDto;
 import com.tunaforce.message.maps.dto.response.CoordinatesDataResponseDto;
 import com.tunaforce.message.maps.service.mapInfoService;
 import lombok.RequiredArgsConstructor;
@@ -22,8 +23,12 @@ public class mapInfoController {
     //좌표 반환 API
     @GetMapping("/Coordinates")
     public ResponseEntity<ApiResponse<CoordinatesDataResponseDto>> getCoords(@RequestParam String address) throws JsonProcessingException {
-        CoordinatesDataResponseDto resultDto = mapInfoService.getCoords(address);
-        ApiResponse<CoordinatesDataResponseDto> resultResponse = ApiResponse.success(resultDto);
+        geocodeResponseDto resultDto = mapInfoService.getCoords(address);
+        CoordinatesDataResponseDto resultCoordinate = new CoordinatesDataResponseDto(
+                resultDto.getAddresses().get(0).getX(),
+                resultDto.getAddresses().get(0).getY()
+        );
+        ApiResponse<CoordinatesDataResponseDto> resultResponse = ApiResponse.success(resultCoordinate);
         return ResponseEntity.ok(resultResponse);
 
     }

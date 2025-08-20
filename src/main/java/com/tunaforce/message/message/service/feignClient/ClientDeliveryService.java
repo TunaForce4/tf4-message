@@ -11,7 +11,7 @@ import java.util.List;
 @Service
 @FeignClient(name="delivery-service", url="${DeliveryFeign.url}")
 public interface ClientDeliveryService {
-    @GetMapping("/deliverys")
+    @GetMapping("/deliverㅑs")
     List<GetDeliveriesResponseDto> getListDelivery();
     //업체 배송 담당자 조건으로 쿼리
 

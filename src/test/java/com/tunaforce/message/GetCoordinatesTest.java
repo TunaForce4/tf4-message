@@ -3,14 +3,21 @@ package com.tunaforce.message;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.tunaforce.message.cmmn.RouteData;
+import com.tunaforce.message.maps.dto.naverRoute.direction5ResponseDto;
 import com.tunaforce.message.maps.service.ClientCoordinatesData;
 import com.tunaforce.message.maps.service.ClientRoutesData;
 import com.tunaforce.message.maps.dto.naverMap.geocodeResponseDto;
+import com.tunaforce.message.maps.service.mapInfoService;
+import com.tunaforce.message.token.entity.MasterToken;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
+
+import java.util.NoSuchElementException;
 
 @Configuration
 @SpringBootTest
@@ -20,7 +27,8 @@ public class GetCoordinatesTest {
     private ClientCoordinatesData clientCoordinatesData;
     @Autowired
     private ClientRoutesData clientRoutesData;
-
+    @Autowired
+    private mapInfoService mapInfoService;
 
 
     @Test
@@ -62,6 +70,8 @@ public class GetCoordinatesTest {
                 "대구광역시 서구 비산동 320-9"
         );
 
+
+
         ObjectMapper test = new ObjectMapper();
         geocodeResponseDto geochangdto = test.readValue(geochang, geocodeResponseDto.class);
         geocodeResponseDto daegudto = test.readValue(daegu, geocodeResponseDto.class);
@@ -77,6 +87,58 @@ public class GetCoordinatesTest {
 
 
         System.out.println("resultData = " + resultData);
+    }
+
+    @Test
+    @DisplayName("루트 데이터2 테스트")
+    void getRoute2() throws JsonProcessingException {
+        RouteData routeData = new RouteData(
+                "거창군 마리면 풍계1길 27-103",
+                "대구광역시 서구 비산동 320-9"
+        );
+
+
+
+        String startStr = routeData.getStart();
+        String endStr = routeData.getGoal();
+
+
+
+//        geocodeResponseDto startCoordinate = mapInfoService.getCoords(routeData.getStart());
+//        geocodeResponseDto endCoordinate = mapInfoService.getCoords(routeData.getGoal());
+
+        //DB에서 가져와야함
+        String Id = "osh066qnrv";
+        String Key = "uvvXHOeBUf3sEaIBaCX5jqBbJHBZqYNrem0s07lj";;
+
+        String result = clientCoordinatesData.getGeocode(
+                Id,
+                Key,
+                routeData.getStart()
+        );
+        ObjectMapper dataParser = new ObjectMapper();
+
+        geocodeResponseDto startCoordinate = dataParser.readValue(result, geocodeResponseDto.class);
+
+        result = clientCoordinatesData.getGeocode(
+                Id,
+                Key,
+                routeData.getGoal()
+        );
+
+        geocodeResponseDto endCoordinate = dataParser.readValue(result, geocodeResponseDto.class);
+
+
+
+        String rowData = clientRoutesData.getRoute(
+                Id,
+                Key,
+                startCoordinate.getPoints().get(0),
+                endCoordinate.getPoints().get(0)
+        );
+
+        System.out.println("resultData = " + rowData);
+        Assertions.assertThat(rowData).isNotNull();
     }
 
 }

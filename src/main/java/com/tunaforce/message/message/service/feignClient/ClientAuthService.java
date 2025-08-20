@@ -1,7 +1,7 @@
 package com.tunaforce.message.message.service.feignClient;
 
 
-import com.tunaforce.message.message.dto.response.UserInformationResponseDto;
+import com.tunaforce.message.message.dto.response.auth.UserInformationResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

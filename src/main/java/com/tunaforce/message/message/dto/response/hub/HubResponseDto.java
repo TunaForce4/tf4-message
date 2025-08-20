@@ -1,4 +1,4 @@
-package com.tunaforce.message.message.dto.msa_dto;
+package com.tunaforce.message.message.dto.response.hub;
 
 public record HubResponseDto(
         Long Id,

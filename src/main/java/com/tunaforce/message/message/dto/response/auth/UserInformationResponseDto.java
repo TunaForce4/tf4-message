@@ -1,4 +1,4 @@
-package com.tunaforce.message.message.dto.response;
+package com.tunaforce.message.message.dto.response.auth;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

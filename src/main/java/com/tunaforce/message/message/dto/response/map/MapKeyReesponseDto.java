@@ -1,4 +1,4 @@
-package com.tunaforce.message.message.dto.response;
+package com.tunaforce.message.message.dto.response.map;
 
 import com.tunaforce.message.token.entity.MasterToken;
 import lombok.AllArgsConstructor;
