@@ -1,6 +1,6 @@
 package com.tunaforce.message.message.service.feignClient;
 
-import com.tunaforce.message.cmmn.ClientCoordinatesData;
+import com.tunaforce.message.maps.service.ClientCoordinatesData;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

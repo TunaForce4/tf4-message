@@ -1,4 +1,4 @@
-package com.tunaforce.message.cmmn;
+package com.tunaforce.message.maps.service;
 
 
 import org.springframework.cloud.openfeign.FeignClient;

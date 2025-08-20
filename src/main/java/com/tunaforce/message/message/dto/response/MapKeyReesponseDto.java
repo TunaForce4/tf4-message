@@ -1,6 +1,6 @@
 package com.tunaforce.message.message.dto.response;
 
-import com.tunaforce.message.message.entity.MasterToken;
+import com.tunaforce.message.token.entity.MasterToken;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

@@ -1,4 +1,4 @@
-package com.tunaforce.message.message.dto.naverMap;
+package com.tunaforce.message.maps.dto.naverMap;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

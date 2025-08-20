@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
+import java.util.NoSuchElementException;
+
 @RestControllerAdvice
 public class ApiExceptionAdvice {
     @ExceptionHandler(ApiException.class)
@@ -45,6 +47,17 @@ public class ApiExceptionAdvice {
         return ResponseEntity
                 .ok(apiResponse);
     }
+	@ExceptionHandler(NoSuchElementException.class)
+	public ResponseEntity<ApiResponse<Object>> noSuchElementExceptionHandler(HttpServletRequest request, final NoSuchElementException NoSuchElementException) {
+		ApiResponse<Object> apiResponse = ApiResponse.<Object>builder()
+				.status(ApiStatus.NOT_FOUND.getStatusCode())
+				.message(ApiStatus.NOT_FOUND.getMessage())
+				.errors(NoSuchElementException.getMessage())
+				.build();
+
+		return ResponseEntity
+				.ok(apiResponse);
+	}
 
 	@ExceptionHandler(SlackApiException.class)
 	public ResponseEntity<ApiResponse<Object>> slackApiExceptionHandler(HttpServletRequest request, final SlackApiException slackApiException) {

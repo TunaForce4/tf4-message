@@ -16,7 +16,7 @@ import java.util.UUID;
 public class DeliveryRouteLog extends Timestamped {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    //@GeneratedValue(strategy = GenerationType.IDENTITY)
     private UUID deliveryIdx;
     @Column(name = "delivery_Id",  nullable = false)
     private String deliveryId;

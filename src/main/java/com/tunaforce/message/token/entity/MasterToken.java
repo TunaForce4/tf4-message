@@ -1,6 +1,7 @@
-package com.tunaforce.message.message.entity;
+package com.tunaforce.message.token.entity;
 
 import com.tunaforce.message.message.dto.request.MapKeyRequestDto;
+import com.tunaforce.message.message.entity.Timestamped;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,6 @@ public class MasterToken extends Timestamped {
     // 사용 키
     @Id
     private UUID userId;
-
     @Column(length = 150, name = "map_id")
     private String mapId;
     @Column(length = 150, name = "map_key")
@@ -36,7 +36,6 @@ public class MasterToken extends Timestamped {
         this.mapId = mapKeyRequestDto.getMapId();
         this.mapKey = mapKeyRequestDto.getMapkey();
         this.messageAppToken = mapKeyRequestDto.getMessageToken();
-
     }
 
     public void deleteTokens(UUID userId) {

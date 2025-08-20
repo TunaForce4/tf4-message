@@ -1,9 +1,10 @@
-package com.tunaforce.message.message.controller;
+package com.tunaforce.message.token.controller;
 
 import com.tunaforce.message.api.ApiResponse;
 import com.tunaforce.message.message.dto.request.MapKeyRequestDto;
 import com.tunaforce.message.message.dto.response.MapKeyReesponseDto;
-import com.tunaforce.message.message.service.RegistrationService;
+import com.tunaforce.message.token.service.RegistrationService;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -38,10 +39,11 @@ public class RegistrationController {
     //userId 는 필수 값
 
     @PostMapping
+    @Transactional
     public ResponseEntity<ApiResponse<String>> mapRegisterToken(
             @RequestBody @Valid MapKeyRequestDto mapKeyRequestDto
-    ) throws NoResourceFoundException {
-        registrationService.updateTokens(mapKeyRequestDto);
+    ) {
+        registrationService.createTokens(mapKeyRequestDto);
         ApiResponse<String> resultDto = ApiResponse.success("null");
         return ResponseEntity.ok(resultDto);
     }

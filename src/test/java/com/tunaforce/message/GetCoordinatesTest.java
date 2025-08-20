@@ -3,9 +3,9 @@ package com.tunaforce.message;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.tunaforce.message.cmmn.ClientCoordinatesData;
-import com.tunaforce.message.cmmn.ClientRoutesData;
-import com.tunaforce.message.message.dto.naverMap.*;
+import com.tunaforce.message.maps.service.ClientCoordinatesData;
+import com.tunaforce.message.maps.service.ClientRoutesData;
+import com.tunaforce.message.maps.dto.naverMap.geocodeResponseDto;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

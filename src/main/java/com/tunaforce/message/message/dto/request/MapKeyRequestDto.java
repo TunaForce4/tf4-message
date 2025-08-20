@@ -9,7 +9,7 @@ import java.util.UUID;
 @Getter
 @AllArgsConstructor
 public class MapKeyRequestDto {
-    @NotNull
+    @NotNull(message = "userId가 누락 되었습니다.")
     private UUID userId;
     private String mapId;
     private String mapkey;

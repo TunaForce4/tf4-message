@@ -1,7 +1,7 @@
 package com.tunaforce.message.message.service;
 
 
-import com.tunaforce.message.cmmn.ClientRoutesData;
+import com.tunaforce.message.maps.service.ClientRoutesData;
 import com.tunaforce.message.cmmn.RouteData;
 import com.tunaforce.message.message.dto.response.SearchLogResponseDto;
 import com.tunaforce.message.message.entity.DeliveryRouteLog;

@@ -32,6 +32,7 @@ public class MessageController {
         return ResponseEntity.ok(reaultDto);
     }
 
+
     @PostMapping
     public ResponseEntity<ApiResponse<String>> sendMessage(
             @RequestBody CreateMessageLogRequestDto createMessageLogRequestDto,
@@ -44,7 +45,8 @@ public class MessageController {
 
         return  ResponseEntity.ok(reaultDto);
         //테이블에 로그를 남기는 로직 구현
-
     }
+
+
 
 }

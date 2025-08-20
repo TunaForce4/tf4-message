@@ -1,19 +1,17 @@
-package com.tunaforce.message.message.service;
+package com.tunaforce.message.token.service;
 
 
 import com.tunaforce.message.message.dto.request.MapKeyRequestDto;
 import com.tunaforce.message.message.dto.response.MapKeyReesponseDto;
-import com.tunaforce.message.message.entity.MasterToken;
-import com.tunaforce.message.message.repository.TokenKeyJpaRepository;
+import com.tunaforce.message.token.entity.MasterToken;
+import com.tunaforce.message.token.repository.TokenKeyJpaRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +44,19 @@ public class RegistrationService {
         // 3. 트랜잭션 커밋 시점에 자동 업데이트 됨
         return resultDto;
     }
+
+    //@Transactional
+    public void createTokens(MapKeyRequestDto mapKeyRequestDto){
+        MasterToken masterToken = new MasterToken(
+                mapKeyRequestDto.getUserId(),
+                mapKeyRequestDto.getMapId(),
+                mapKeyRequestDto.getMapkey(),
+                mapKeyRequestDto.getMessageToken()
+        );
+        MasterToken temp = tokenKeyJpaRepository.save(masterToken);
+    }
+
+
     //앱 변경시에 논리적 DB 제거
     public void deleteTokens(UUID userId) throws NoResourceFoundException {
         MasterToken mT = tokenKeyJpaRepository.findById(userId).orElseThrow(
