@@ -1,15 +1,17 @@
 package com.tunaforce.message.maps.dto.naverMap;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class geocodeResponseDto {
     public String status;
     public Meta meta;

@@ -11,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class UserInformationResponseDto {
     private UUID userId;
-    private String name;
+    private String username;
     private String slackId;
     private String role;
     private String deptId;

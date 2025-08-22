@@ -10,6 +10,7 @@ import com.tunaforce.message.message.entity.MessageManagement;
 import com.tunaforce.message.message.repository.MessageLogRepository;
 import com.tunaforce.message.token.repository.TokenKeyJpaRepository;
 import com.tunaforce.message.message.service.feignClient.ClientAuthService;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -26,6 +27,7 @@ public class MessageService {
     //슬랙 앱으로 보내는 함수 사용
     private final SlackMsg slackMsg;
 
+    @Transactional
     public String sendMessage(UUID senderId, CreateMessageLogRequestDto createMessageLogRequestDto) throws SlackApiException, IOException {
         //원래는 senderId와 receiverId를 Auth에서 name을 받아서 입력하도록 함
         //테스트로 주석 처리
@@ -38,9 +40,9 @@ public class MessageService {
 
         //받은 값과 조회한 값을 기준으로 응답 데이터 만듬
         MessageLogResponseDto resultData = new MessageLogResponseDto(
-                senderAppId.getName(),
+                senderAppId.getUsername(),
                 createMessageLogRequestDto.content(),
-                receiverAppId.getName(),
+                receiverAppId.getUsername(),
                 senderId,
                 createMessageLogRequestDto.receiverId()
         );

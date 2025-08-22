@@ -1,10 +1,14 @@
 package com.tunaforce.message.message.dto.response.delivery;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
 
 @Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
+@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class GetDeliveriesResponseDto {
     private String deliveryId;
     private String orderId;
@@ -12,9 +16,9 @@ public class GetDeliveriesResponseDto {
     private String departureHubId;
     private String arrivalHubId;
     private String deliveryAddress;
-    private int receivedUserId;
+    private String receivedUserId;
     private String receivedSlackId;
-    private int companyDeliveryAgentId;
+    private String companyDeliveryAgentId;
     private String createdAt;
     private String updatedAt;
 }

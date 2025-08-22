@@ -47,6 +47,7 @@ public class mapInfoService {
 
     //허브에서 경위도가 자체
     public direction5ResponseDto getRoute(RouteData routeData) throws JsonProcessingException {
+        log.info("get the long and lat data");
         //각 주소로 경위도를 반환한다.
         geocodeResponseDto startCoordinate = getCoords(routeData.getStart());
         geocodeResponseDto endCoordinate = getCoords(routeData.getGoal());
@@ -67,5 +68,14 @@ public class mapInfoService {
 
         ObjectMapper dataParser = new ObjectMapper();
         return dataParser.readValue(rowData, direction5ResponseDto.class);
+    }
+
+    // 시분초를 변환하는 함수
+    public String convertMsToTimeString(long millis) {
+        long hours = millis / (1000 * 60 * 60);
+        long minutes = (millis / (1000 * 60)) % 60;
+        long seconds = (millis / 1000) % 60;
+
+        return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 }

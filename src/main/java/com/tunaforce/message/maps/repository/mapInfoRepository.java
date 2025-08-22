@@ -8,6 +8,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface mapInfoRepository extends JpaRepository<MasterToken, UUID> {
-    @Query("select m from MasterToken m where m.deletedAt != null ")
+    @Query("select m from MasterToken m where m.deletedAt is null ")
     Optional<MasterToken> getMasterToken();
 }

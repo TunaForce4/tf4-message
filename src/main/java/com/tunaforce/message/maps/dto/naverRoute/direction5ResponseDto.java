@@ -1,9 +1,19 @@
 package com.tunaforce.message.maps.dto.naverRoute;
 
-public record direction5ResponseDto(
-        int code,
-        String message,
-        String currentDateTime,
-        Route route
-) {}
+
+import com.fasterxml.jackson.annotation.JsonInclude;
+import lombok.*;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@JsonInclude(JsonInclude.Include.NON_NULL)
+public class direction5ResponseDto {
+    private int code;
+    private String message;
+    private String currentDateTime;
+    private Route route;
+}
 
