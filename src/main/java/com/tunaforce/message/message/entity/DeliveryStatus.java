@@ -20,5 +20,6 @@ public class DeliveryStatus extends Timestamped {
     @Id
     private UUID userId;
     @Column(length = 100)
-    private String hub_id;
+    private String hubid;
+    private Long deliverySeq;
 }

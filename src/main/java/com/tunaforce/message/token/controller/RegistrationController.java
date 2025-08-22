@@ -7,6 +7,9 @@ import com.tunaforce.message.token.service.RegistrationService;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.cloud.logging.LoggingRebinder;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.resource.NoResourceFoundException;
@@ -14,12 +17,14 @@ import org.springframework.web.servlet.resource.NoResourceFoundException;
 import java.util.List;
 import java.util.UUID;
 
+@Slf4j
 @RestController
 @RequestMapping("/token")
 @RequiredArgsConstructor
 public class RegistrationController {
 
     private final RegistrationService registrationService;
+    private final LoggingRebinder loggingRebinder;
 
     @GetMapping
     public ResponseEntity<ApiResponse<List<MapKeyReesponseDto>>> getAllTokens() {
@@ -41,11 +46,22 @@ public class RegistrationController {
     @PostMapping
     @Transactional
     public ResponseEntity<ApiResponse<String>> mapRegisterToken(
-            @RequestBody @Valid MapKeyRequestDto mapKeyRequestDto
+            @RequestBody @Valid MapKeyRequestDto mapKeyRequestDto,
+            @RequestParam("X-User-Id") UUID userId,
+            @RequestHeader("X-Roles")  String roles
     ) {
-        registrationService.createTokens(mapKeyRequestDto);
-        ApiResponse<String> resultDto = ApiResponse.success("null");
-        return ResponseEntity.ok(resultDto);
+        log.info("{} has approached",userId);
+        log.info("{} Roles",roles);
+
+        if (roles.contains("MASTER")) {
+            registrationService.createTokens(mapKeyRequestDto);
+            ApiResponse<String> resultDto = ApiResponse.success("null");
+            return ResponseEntity.ok(resultDto);
+        }
+        else{
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
     }
 
 

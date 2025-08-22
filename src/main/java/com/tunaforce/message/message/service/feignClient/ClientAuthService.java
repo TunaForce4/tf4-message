@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.UUID;
 
-@FeignClient(name = "auth-Service", url = "${Naver.API.Geocoding}")
+@FeignClient(name = "auth-Service", url = "${Clients.Auth}")
 public interface ClientAuthService {
     //시용자 정보의 앱 ID가 필요
     @GetMapping("/users/{user_id}")

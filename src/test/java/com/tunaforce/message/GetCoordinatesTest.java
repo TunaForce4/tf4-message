@@ -9,6 +9,9 @@ import com.tunaforce.message.maps.service.ClientCoordinatesData;
 import com.tunaforce.message.maps.service.ClientRoutesData;
 import com.tunaforce.message.maps.dto.naverMap.geocodeResponseDto;
 import com.tunaforce.message.maps.service.mapInfoService;
+import com.tunaforce.message.message.dto.response.delivery.GetDeliveriesResponseDto;
+import com.tunaforce.message.message.dto.response.delivery.GetDeliverymenResponseDto;
+import com.tunaforce.message.message.service.feignClient.ClientDeliveryService;
 import com.tunaforce.message.token.entity.MasterToken;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
@@ -17,7 +20,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @Configuration
 @SpringBootTest
@@ -139,6 +145,22 @@ public class GetCoordinatesTest {
 
         System.out.println("resultData = " + rowData);
         Assertions.assertThat(rowData).isNotNull();
+    }
+
+    @Autowired
+    ClientDeliveryService clientDeliveryService;
+    
+    @Test
+    @DisplayName("허브 좌표 테스트")
+    void getHubs(){
+
+        //허브 별 담당자 조회
+        //role로 구분
+        List<GetDeliverymenResponseDto> resultAgents = clientDeliveryService.getListDeliverymen("Company");
+
+        //허브 아이디로 각각 허브에 속한 담당자 끼리 묶는다
+        Map<String, List<GetDeliverymenResponseDto>> hubGrouped =
+                resultAgents.stream().collect(Collectors.groupingBy(GetDeliverymenResponseDto::getHubId));
     }
 
 }

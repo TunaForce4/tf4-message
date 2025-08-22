@@ -7,12 +7,13 @@ import com.tunaforce.message.maps.dto.naverMap.geocodeResponseDto;
 import com.tunaforce.message.maps.dto.response.CoordinatesDataResponseDto;
 import com.tunaforce.message.maps.service.mapInfoService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.UUID;
+
+@Slf4j
 @RestController
 @RequestMapping("/maps")
 @RequiredArgsConstructor
@@ -22,7 +23,12 @@ public class mapInfoController {
 
     //좌표 반환 API
     @GetMapping("/Coordinates")
-    public ResponseEntity<ApiResponse<CoordinatesDataResponseDto>> getCoords(@RequestParam String address) throws JsonProcessingException {
+    public ResponseEntity<ApiResponse<CoordinatesDataResponseDto>> getCoords(
+            @RequestParam String address,
+            @RequestHeader("X-User-Id") UUID userId
+            ) throws JsonProcessingException {
+
+        log.info("{}  -> \n Search address : {}",userId, address);
         geocodeResponseDto resultDto = mapInfoService.getCoords(address);
         CoordinatesDataResponseDto resultCoordinate = new CoordinatesDataResponseDto(
                 resultDto.getAddresses().get(0).getX(),

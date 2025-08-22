@@ -9,10 +9,12 @@ import com.tunaforce.message.maps.dto.response.CoordinatesDataResponseDto;
 import com.tunaforce.message.token.entity.MasterToken;
 import com.tunaforce.message.maps.repository.mapInfoRepository;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.NoSuchElementException;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class mapInfoService {
@@ -29,7 +31,7 @@ public class mapInfoService {
         //DB에서 가져와야함
         String Id = masterToken.getMapId();
         String Key = masterToken.getMapKey();
-
+        log.info("Search Keys -> \n {} : {}",Id, Key);
         String result = clientCoordinatesData.getGeocode(
                 Id,
                 Key,

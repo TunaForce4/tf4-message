@@ -7,7 +7,11 @@ import com.slack.api.methods.request.conversations.ConversationsHistoryRequest;
 import com.slack.api.methods.request.conversations.ConversationsOpenRequest;
 import com.slack.api.methods.response.chat.ChatPostMessageResponse;
 import com.slack.api.methods.response.conversations.ConversationsOpenResponse;
+import com.tunaforce.message.api.SlackMessageSendException;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
+import okhttp3.Request;
+import okhttp3.Response;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -67,8 +71,9 @@ public class SlackMsg {
                         .build()
         );
 
+
         if (!openResponse.isOk()) {
-            throw new RuntimeException("Error opening conversation: " + openResponse.getError());
+            throw new SlackMessageSendException("Error opening conversation: " + openResponse.getError());
         }
         else{
             log.info("From. {} \n message has sent : {}",userId ,message);

@@ -50,6 +50,10 @@ dependencyManagement {
     }
 }
 
+springBoot {
+    mainClass = 'com.tunaforce.message.MessageApplication'
+}
+
 tasks.named('test') {
     useJUnitPlatform()
 }

@@ -3,6 +3,7 @@ package com.tunaforce.message.api;
 import com.slack.api.methods.SlackApiException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -67,7 +68,18 @@ public class ApiExceptionAdvice {
 				.errors(slackApiException.getMessage())
 				.build();
 
-		return ResponseEntity
-				.ok(apiResponse);
+		return ResponseEntity.status(HttpStatus.NOT_FOUND).body(apiResponse);
 	}
+
+	@ExceptionHandler(SlackMessageSendException.class)
+	public ResponseEntity<ApiResponse<Object>> handleSlackMessageSendException(SlackMessageSendException ex) {
+		ApiResponse<Object> apiResponse = ApiResponse.<Object>builder()
+				.status(HttpStatus.INTERNAL_SERVER_ERROR.value())  // 500 상태 코드
+				.message("Slack 메시지 전송 실패")
+				.errors(ex.getMessage())
+				.build();
+
+		return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(apiResponse);
+	}
+
 }
