@@ -145,7 +145,7 @@ public class GetCoordinatesTest {
 
         direction5ResponseDto direction5Response = dataParser.readValue(rowData, direction5ResponseDto.class);
 
-        Summary tempRoute = direction5Response.route().traoptimal().get(0).summary();
+        Summary tempRoute = direction5Response.getRoute().traoptimal().get(0).summary();
 
         //전체 경로 거리
         int distance = tempRoute.distance();

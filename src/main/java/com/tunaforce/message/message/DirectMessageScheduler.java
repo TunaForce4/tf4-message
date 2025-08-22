@@ -9,12 +9,15 @@ import com.tunaforce.message.maps.dto.naverRoute.Summary;
 import com.tunaforce.message.maps.dto.naverRoute.direction5ResponseDto;
 import com.tunaforce.message.maps.service.mapInfoService;
 import com.tunaforce.message.message.dto.request.CreateMessageLogRequestDto;
+import com.tunaforce.message.message.dto.response.MessageLogResponseDto;
 import com.tunaforce.message.message.dto.response.delivery.DeliveryForm;
 import com.tunaforce.message.message.dto.response.delivery.GetDeliveriesResponseDto;
 import com.tunaforce.message.message.dto.response.delivery.GetDeliverymenResponseDto;
 import com.tunaforce.message.message.dto.response.hub.HubResponseDto;
 import com.tunaforce.message.message.dto.response.hub.HubsResponseDto;
 import com.tunaforce.message.message.entity.DeliveryStatus;
+import com.tunaforce.message.message.entity.MessageManagement;
+import com.tunaforce.message.message.repository.MessageLogRepository;
 import com.tunaforce.message.message.repository.StatusRepository;
 import com.tunaforce.message.message.service.MessageService;
 import com.tunaforce.message.message.service.feignClient.ClientDeliveryService;
@@ -47,6 +50,8 @@ public class DirectMessageScheduler {
     private mapInfoService mIService;
     @Autowired
     private MessageService msgApp;
+    @Autowired
+    private MessageLogRepository messageLogRepository;
 
     //@Scheduled(cron = "${scheduler.second} ${scheduler.minute} ${scheduler.hour} * * *") // 매일 오전 6시 (초, 분, 시, 일, 월, 요일)
     @Scheduled(fixedRate = 5000)
@@ -125,7 +130,12 @@ public class DirectMessageScheduler {
                     );
 
 
-                    msgApp.sendMessage(UUID.fromString("49195b81-db15-438c-8f1c-63b17739c027"), msgInfo);
+                    MessageLogResponseDto tempData = msgApp.sendMessage(UUID.fromString("49195b81-db15-438c-8f1c-63b17739c027"), msgInfo);
+
+                    //로그는 송신이 된 후에 쌓여야 함
+                    MessageManagement messageManagement = new MessageManagement(tempData);
+                    messageLogRepository.save(messageManagement);
+                    //앱을 통한 메세지 송신 로직 구성
 
 
 

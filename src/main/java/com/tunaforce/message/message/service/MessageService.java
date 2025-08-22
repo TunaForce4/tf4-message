@@ -28,7 +28,7 @@ public class MessageService {
     private final SlackMsg slackMsg;
 
     @Transactional
-    public String sendMessage(UUID senderId, CreateMessageLogRequestDto createMessageLogRequestDto) throws SlackApiException, IOException {
+    public MessageLogResponseDto sendMessage(UUID senderId, CreateMessageLogRequestDto createMessageLogRequestDto) throws SlackApiException, IOException {
         //원래는 senderId와 receiverId를 Auth에서 name을 받아서 입력하도록 함
         //테스트로 주석 처리
         //senderID는 나중에 messageManagement에서 값을 반환 받을 때 필요
@@ -58,14 +58,10 @@ public class MessageService {
                 resultData.getFormMessage()
         );
 
-    //로그는 송신이 된 후에 쌓여야 함
-        MessageManagement messageManagement = new MessageManagement(resultData);
-        messageLogRepository.save(messageManagement);
-        //앱을 통한 메세지 송신 로직 구성
 
 
 
-        return "null";
+        return resultData;
 
     }
 

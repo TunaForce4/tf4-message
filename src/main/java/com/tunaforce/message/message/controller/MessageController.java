@@ -47,14 +47,14 @@ public class MessageController {
 
     //
     @PostMapping
-    public ResponseEntity<ApiResponse<String>> sendMessage(
+    public ResponseEntity<ApiResponse<MessageLogResponseDto>> sendMessage(
             @RequestBody CreateMessageLogRequestDto createMessageLogRequestDto,
             @RequestHeader("X-User-Id") UUID userId
     ) throws SlackApiException, IOException {
         log.info("the Sender : " + userId);
         //slackMsg 클래스 내부의 함수 호출
-        String mlr = msgService.sendMessage(userId ,createMessageLogRequestDto);
-        ApiResponse<String> reaultDto = ApiResponse.success(mlr);
+        MessageLogResponseDto mlr = msgService.sendMessage(userId ,createMessageLogRequestDto);
+        ApiResponse<MessageLogResponseDto> reaultDto = ApiResponse.success(mlr);
 
         return  ResponseEntity.ok(reaultDto);
     }
