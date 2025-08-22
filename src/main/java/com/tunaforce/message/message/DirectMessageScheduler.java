@@ -53,18 +53,19 @@ public class DirectMessageScheduler {
     @Autowired
     private MessageLogRepository messageLogRepository;
 
-    //@Scheduled(cron = "${scheduler.second} ${scheduler.minute} ${scheduler.hour} * * *") // 매일 오전 6시 (초, 분, 시, 일, 월, 요일)
-    @Scheduled(fixedRate = 5000)
+    //@Scheduled(fixedRate = 5000)
+    @Scheduled(cron = "${scheduler.second} ${scheduler.minute} ${scheduler.hour} * * *") // 매일 오전 6시 (초, 분, 시, 일, 월, 요일)
     public void directMessageScheduler() throws NoSuchElementException, IOException, SlackApiException {
 
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        DateTimeFormatter formattertime = DateTimeFormatter.ofPattern("HH:mm:ss");
         String today = now.format(formatter);
+        String nowTime = now.format(formattertime);
 
         //배송 리스트를 받아온다
         //배송 리스트에 대한 날짜로 받아옴
-        //DeliveryForm<GetDeliveriesResponseDto> resultProduct =  clientDeliveryService.getListDelivery(today);
-        DeliveryForm<GetDeliveriesResponseDto> resultProduct = clientDeliveryService.getListDelivery("2025-08-22");
+        DeliveryForm<GetDeliveriesResponseDto> resultProduct =  clientDeliveryService.getListDelivery(today);
         if (resultProduct.getData().isEmpty()) {
             return;
         }
@@ -124,7 +125,7 @@ public class DirectMessageScheduler {
 
                     //위의 받은 값으로 각 담당자에서 메세지를 보낸다.
                     CreateMessageLogRequestDto msgInfo = new CreateMessageLogRequestDto(
-                            "목적지 : " + routePath.getGoal(),
+                            "\n["+nowTime+"] -> \n"+"목적지 : " + routePath.getGoal(),
                             UUID.randomUUID(),
                             manSingle.getUserId()
                     );

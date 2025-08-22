@@ -173,8 +173,6 @@ public class GetCoordinatesTest {
         //role로 구분
         DeliveryForm<GetDeliverymenResponseDto> resultAgents = clientDeliveryService.getListDeliverymen("Company");
 
-        DirectMessageScheduler temp =  new DirectMessageScheduler();
-
 
 
 
